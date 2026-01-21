@@ -4,18 +4,17 @@
 
       Tuba Farm Equipment
       Variables and functions
-      Author: 
-      Date:   
+      Author: Treyvon Pearson
+      Date: 1/2126
 
       Filename: js04.js
  */
-
 
 /* global variables tracking status of each form section */
 acresComplete = true;
 let cropsComplete = true;
 let monthsComplete = true;
-et fuelComplete = true;
+let fuelComplete = true;
 
 /* global variables referencing sidebar h2 and p elements */
 let messageHeadElement = document.getElementById("messageHead");
