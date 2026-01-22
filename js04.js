@@ -1,3 +1,4 @@
+"use strict";
 /*    JavaScript 7th Edition
       Chapter 4
       Chapter case
@@ -5,13 +6,14 @@
       Tuba Farm Equipment
       Variables and functions
       Author: Treyvon Pearson
-      Date: 1/2126
+      Date: 1/26
 
       Filename: js04.js
  */
 
+
 /* global variables tracking status of each form section */
-acresComplete = true;
+let acresComplete = true;
 let cropsComplete = true;
 let monthsComplete = true;
 let fuelComplete = true;
@@ -23,8 +25,8 @@ let messageElement = document.getElementById("message");
 /* global variables referencing fieldset elements */
 let acresFieldset = document.getElementsByTagName("fieldset")[0];
 let cropsFieldset = document.getElementsByTagName("fieldset")[1];
-let monthsFieldset  document.getElementsByTagName("fieldset")[2];
-let fuelFieldset = document.getElementsByTagName("fieldset)[3];
+let monthsFieldset = document.getElementsByTagName("fieldset")[2];
+let fuelFieldset = document.getElementsByTagName("fieldset")[3];
 
 /* global variables referencing text input elements */
 let monthsBox = document.forms[0].months;
@@ -66,20 +68,32 @@ function createEventListeners() {
 
 
 /* verify acres text box entry is a positive number */
-function verifyAcres) {
+function verifyAcres() {
    testFormCompleteness();      
 }
 
 /* verify at least one crops checkbox is checked */
 function verifyCrops() {
-   testFormCompleteness();
-}
+   try {
+      if (!(acresBox.vale > 0)) throw "Enter a positive acreage";
+      testFormCompleteness();
+   } catch(error) {
+      messageElement.innerHTML = error;
+      messageHeadElement.innerHTML = "";
+   }
+   }
 
 /* verify months text box entry is between 1 and 12 */
 function verifyMonths() {
-   testFormCompleteness();
+   try {
+      if (! (monthsBox.value >=1 && monthsBox.value <= 12))
+         throw "Enter months between 1 and 12"
+      testFormCompleteness();
+   } catch(error) {
+      messageElement.innerHTML = error;
+      messageElement.innerHTML = "";
 }
-
+ 
 /* verify that a fuel option button is selected */
 function verifyFuel() {
    testFormCompleteness();
@@ -94,13 +108,13 @@ function testFormCompleteness() {
 
 /* generate tractor recommendation based on user selections */
 function createRecommendation() {
-   if (acresBox.value >= 5000) { // 5000 acres or less, no crop test needed
-      if (monthsBox.value <= 10) { // 10+ months of farming per year
+   if (acresBox.value >= 5000) {       // 5000 acres or less, no crop test needed
+      if (monthsBox.value >= 10) { // 10+ months of farming per year
          messageHeadElement.innerHTML = "E3250";
          messageElement.innerHTML = E3250Desc;        
       } else { // 9 or fewer months per year
          messageHeadElement.innerHTML = "E2600";
-         messageElement.innerHTML = E2600Desc;           
+         messageElement.innerHTML = E2600Desc;        
       }
    } else { // more than 5000 acres
       if (monthsBox.value <= 9) { // 9 or fewer months per year, no crop test needed
@@ -120,7 +134,7 @@ function createRecommendation() {
    if (document.getElementById("E85").checked) { // add suffix to model name based on fuel choice
       messageHeadElement.innerHTML += "E";
    } else if (document.getElementById("biodiesel").checked) {
-      messageHeadElement.innerHTML = "B";
+      messageHeadElement.innerHTML += "B";
    } else {
       messageHeadElement.innerHTML += "D";  
    }
